@@ -1,5 +1,3 @@
-local turtle = {}
-
 local home = { x = 0, y = 0, z = 0 }
 local currentPos = { x = 0, y = 0, z = 0 }
 local undesirables = {
