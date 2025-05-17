@@ -284,8 +284,6 @@ local function advancedMine()
 				turtle.turnLeft()
 				turnedLeft = true
 				move("r", mineMoves)
-			else
-				turtle.turnLeft()
 			end
 		end
 		if not turnedLeft then
