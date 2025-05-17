@@ -440,6 +440,7 @@ local function loop()
 			print("Mining")
 			advancedMine()
 			-- mine()
+			turtle.dig()
 			move("f", moves)
 		end
 	end
