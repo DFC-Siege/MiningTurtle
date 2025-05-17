@@ -20,6 +20,8 @@ local undesirables = {
 	"minecraft:cobblestone",
 	"byg:soapstone",
 	"byg:rocky_stone",
+	"astralsorcery:marble",
+	"byg:scoria_stone",
 }
 local level = 50
 local moves = {}
