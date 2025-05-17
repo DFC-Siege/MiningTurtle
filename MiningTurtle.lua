@@ -182,7 +182,7 @@ local function mine()
 end
 
 local function moveBack(movesList)
-	local lastMove = movesList[#moves]
+	local lastMove = movesList[#movesList]
 
 	local success = false
 	if lastMove == "f" then
