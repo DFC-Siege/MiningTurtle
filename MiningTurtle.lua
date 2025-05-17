@@ -182,6 +182,11 @@ local function mine()
 end
 
 local function moveBack(movesList)
+	if #movesList == 0 then
+		print("No moves to go back")
+		return
+	end
+
 	local lastMove = movesList[#movesList]
 
 	local success = false
