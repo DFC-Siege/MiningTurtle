@@ -223,6 +223,7 @@ local function advancedMine()
 		if turtle.detectUp() then
 			local _, item = turtle.inspectUp()
 			if item and item.name and not tableContains(undesirables, item.name) then
+				print("Found: " .. item.name)
 				turtle.digUp()
 				if not firstMinableFound then
 					checkpoint = currentPos
@@ -236,6 +237,7 @@ local function advancedMine()
 		if turtle.detectDown() then
 			local _, item = turtle.inspectDown()
 			if item and item.name and not tableContains(undesirables, item.name) then
+				print("Found: " .. item.name)
 				turtle.digDown()
 				if not firstMinableFound then
 					checkpoint = currentPos
@@ -250,6 +252,7 @@ local function advancedMine()
 		if turtle.detect() then
 			local _, item = turtle.inspect()
 			if item and item.name and not tableContains(undesirables, item.name) then
+				print("Found: " .. item.name)
 				turtle.digDown()
 				if not firstMinableFound then
 					checkpoint = currentPos
@@ -265,6 +268,7 @@ local function advancedMine()
 		if turtle.detect() then
 			local _, item = turtle.inspect()
 			if item and item.name and not tableContains(undesirables, item.name) then
+				print("Found: " .. item.name)
 				turtle.digDown()
 				if not firstMinableFound then
 					checkpoint = currentPos
@@ -277,10 +281,12 @@ local function advancedMine()
 		turtle.turnLeft()
 
 		if not hasFoundMinable then
+			print("No more minable blocks found, moving back")
 			moveBack(mineMoves)
 		end
 
 		if currentPos == checkpoint then
+			print("Checkpoint reached")
 			done = true
 		end
 
