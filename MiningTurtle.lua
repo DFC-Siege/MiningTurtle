@@ -330,6 +330,11 @@ local function advancedMine()
 			moveBack(mineMoves)
 		end
 
+		if not firstMinableFound then
+			print("No minable blocks found continue")
+			done = true
+		end
+
 		print("Current position: " .. currentPos.x .. ", " .. currentPos.y .. ", " .. currentPos.z)
 		print("Checkpoint position: " .. checkpoint.x .. ", " .. checkpoint.y .. ", " .. checkpoint.z)
 		print(currentPos.x == checkpoint.x and currentPos.y == checkpoint.y and currentPos.z == checkpoint.z)
@@ -340,12 +345,7 @@ local function advancedMine()
 			and currentPos.z == checkpoint.z
 		then
 			print("Checkpoint reached")
-			done = true
-		end
-
-		if not firstMinableFound then
-			print("No minable blocks found continue")
-			done = true
+			firstMinableFound = false
 		end
 
 	until done
