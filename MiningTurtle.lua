@@ -377,6 +377,19 @@ local function advancedMine()
 	until done
 end
 
+local function inventoryFull()
+	local full = true
+	for i = 1, 16 do
+		local item = turtle.getItemDetail(i)
+		if not item then
+			full = false
+			break
+		end
+	end
+
+	return full
+end
+
 local function checkGoBackHome()
 	local distance = 0
 	local margin = 25
@@ -385,7 +398,8 @@ local function checkGoBackHome()
 	distance = distance + math.abs(home.z - currentPos.z)
 
 	print(getMovementLeft())
-	return getMovementLeft() - distance + margin <= 0
+
+	return inventoryFull() or getMovementLeft() - distance + margin <= 0
 end
 
 local function moveTowardsHome()
