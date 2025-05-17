@@ -8,6 +8,9 @@ local undesirables = {
 	"minecraft:dirt",
 	"minecraft:gravel",
 	"minecraft:clay",
+	"minecraft:cobblestone",
+	"byg:soapstone",
+	"byg:rocky_stone",
 }
 local level = 50
 local moves = {}
@@ -173,6 +176,39 @@ local function levelReached()
 	return currentPos.y == level
 end
 
+local function savePosition()
+	local file = fs.open("position.txt", "w")
+	if file then
+		file.writeLine("x: " .. currentPos.x)
+		file.writeLine("y: " .. currentPos.y)
+		file.writeLine("z: " .. currentPos.z)
+		file.close()
+	else
+		print("Error saving position")
+	end
+end
+
+local function loadPosition()
+	local file = fs.open("position.txt", "r")
+	if file then
+		local x = tonumber(file.readLine():match("x: (%d+)"))
+		local y = tonumber(file.readLine():match("y: (%d+)"))
+		local z = tonumber(file.readLine():match("z: (%d+)"))
+		file.close()
+
+		if x and y and z then
+			currentPos.x = x
+			currentPos.y = y
+			currentPos.z = z
+			print("Loaded position: " .. currentPos.x .. ", " .. currentPos.y .. ", " .. currentPos.z)
+		else
+			print("Error loading position")
+		end
+	else
+		print("No saved position found")
+	end
+end
+
 local function move(direction)
 	print("Moving " .. direction)
 	if direction == "u" then
@@ -200,6 +236,7 @@ local function move(direction)
 	end
 
 	table.insert(moves, direction)
+	savePosition()
 end
 
 local function loop()
@@ -228,4 +265,5 @@ local function loop()
 	end
 end
 
+loadPosition()
 loop()
