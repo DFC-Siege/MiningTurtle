@@ -280,13 +280,18 @@ local function advancedMine()
 		end
 		turtle.turnLeft()
 
-		if not hasFoundMinable then
+		if firstMinableFound and not hasFoundMinable then
 			print("No more minable blocks found, moving back")
 			moveBack(mineMoves)
 		end
 
-		if currentPos == checkpoint then
+		if firstMinableFound and currentPos == checkpoint then
 			print("Checkpoint reached")
+			done = true
+		end
+
+		if not firstMinableFound then
+			print("No minable blocks found continue")
 			done = true
 		end
 
