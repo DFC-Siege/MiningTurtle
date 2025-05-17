@@ -1,5 +1,5 @@
-local home = { x = 304, y = 65, z = -139 }
-local currentPos = { x = 304, y = 65, z = -139 }
+local home = { x = 304, y = 58, z = -139 }
+local currentPos = home
 local checkpoint = currentPos
 local undesirables = {
 	"minecraft:stone",
@@ -19,7 +19,7 @@ local moves = {}
 local fuelLimit = turtle.getFuelLimit()
 
 local function savePosition()
-	local file = fs.open("position.txt", "w")
+	local file = fs.open("programs/position.txt", "w")
 	if file then
 		file.writeLine("x: " .. currentPos.x)
 		file.writeLine("y: " .. currentPos.y)
@@ -235,7 +235,7 @@ local function advancedMine()
 
 		if turtle.detectDown() then
 			local _, item = turtle.inspectDown()
-			if item and item.name and not table.contains(undesirables, item.name) then
+			if item and item.name and not tableContains(undesirables, item.name) then
 				turtle.digDown()
 				if not firstMinableFound then
 					checkpoint = currentPos
@@ -249,7 +249,7 @@ local function advancedMine()
 		turtle.turnLeft()
 		if turtle.detect() then
 			local _, item = turtle.inspect()
-			if item and item.name and not table.contains(undesirables, item.name) then
+			if item and item.name and not tableContains(undesirables, item.name) then
 				turtle.digDown()
 				if not firstMinableFound then
 					checkpoint = currentPos
@@ -264,7 +264,7 @@ local function advancedMine()
 		turtle.turnRight()
 		if turtle.detect() then
 			local _, item = turtle.inspect()
-			if item and item.name and not table.contains(undesirables, item.name) then
+			if item and item.name and not tableContains(undesirables, item.name) then
 				turtle.digDown()
 				if not firstMinableFound then
 					checkpoint = currentPos
@@ -334,7 +334,7 @@ local function levelReached()
 end
 
 local function loadPosition()
-	local file = fs.open("position.txt", "r")
+	local file = fs.open("programs/position.txt", "r")
 	if file then
 		local x = tonumber(file.readLine():match("x: (%d+)"))
 		local y = tonumber(file.readLine():match("y: (%d+)"))
