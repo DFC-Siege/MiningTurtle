@@ -249,6 +249,7 @@ local function advancedMine()
 		end
 
 		turtle.turnLeft()
+		local turnedRight = false
 		if turtle.detect() then
 			local _, item = turtle.inspect()
 			if item and item.name and not tableContains(undesirables, item.name) then
@@ -260,13 +261,16 @@ local function advancedMine()
 				end
 				hasFoundMinable = true
 				turtle.turnRight()
+				turnedRight = true
 				move("l", mineMoves)
-			else
-				turtle.turnRight()
 			end
+		end
+		if not turnedRight then
+			turtle.turnRight()
 		end
 
 		turtle.turnRight()
+		local turnedLeft = false
 		if turtle.detect() then
 			local _, item = turtle.inspect()
 			if item and item.name and not tableContains(undesirables, item.name) then
@@ -278,10 +282,14 @@ local function advancedMine()
 				end
 				hasFoundMinable = true
 				turtle.turnLeft()
+				turnedLeft = true
 				move("r", mineMoves)
 			else
 				turtle.turnLeft()
 			end
+		end
+		if not turnedLeft then
+			turtle.turnLeft()
 		end
 
 		if turtle.detect() then
