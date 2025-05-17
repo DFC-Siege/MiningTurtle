@@ -6,11 +6,11 @@ local urls = {
 for _, url in ipairs(urls) do
 	-- Extract the filename from the URL
 	local filename = url:match("^.+/(.+)$")
-	print(filename)
 	if filename then
 		-- Delete the file if it exists
 		if fs.exists("/programs/" .. filename) then
-			fs.delete(filename)
+			local test = fs.delete(filename)
+			print(test)
 			print("Deleted existing file: " .. filename)
 		end
 
