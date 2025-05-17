@@ -327,6 +327,30 @@ local function advancedMine()
 			end
 		end
 
+		turtle.turnLeft()
+		turtle.turnLeft()
+		turnedBack = false
+		if turtle.detect() then
+			local _, item = turtle.inspect()
+			if item and item.name and not tableContains(undesirables, item.name) then
+				print("Found: " .. item.name)
+				turtle.dig()
+				if not firstMinableFound then
+					checkpoint = shallowCopy(currentPos)
+					firstMinableFound = true
+				end
+				hasFoundMinable = true
+				turtle.turnRight()
+				turtle.turnRight()
+				turnedBack = true
+				move("b", mineMoves)
+			end
+		end
+		if not turnedBack then
+			turtle.turnRight()
+			turtle.turnRight()
+		end
+
 		if firstMinableFound and not hasFoundMinable then
 			print("No more minable blocks found, moving back")
 			moveBack(mineMoves)
