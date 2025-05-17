@@ -280,7 +280,7 @@ local function advancedMine()
 				turtle.turnLeft()
 				move("r", mineMoves)
 			else
-				turtle.TurnLeft()
+				turtle.turnLeft()
 			end
 		end
 
