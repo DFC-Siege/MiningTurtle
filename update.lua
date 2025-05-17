@@ -15,12 +15,12 @@ for _, url in ipairs(urls) do
 		end
 
 		-- Download the file
-		local success, err = shell.run("wget", url, filename)
-		if success then
-			print("Downloaded: " .. filename)
-		else
-			print("Failed to download " .. filename .. ": " .. tostring(err))
-		end
+		-- local success, err = shell.run("wget", url, filename)
+		-- if success then
+		-- 	print("Downloaded: " .. filename)
+		-- else
+		-- 	print("Failed to download " .. filename .. ": " .. tostring(err))
+		-- end
 	else
 		print("Invalid URL format: " .. url)
 	end
