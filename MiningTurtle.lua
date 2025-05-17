@@ -6,7 +6,7 @@ local function shallowCopy(t)
 	return copy
 end
 
-local home = { x = 304, y = 58, z = -139 }
+local home = { x = 256, y = 69, z = -148 }
 local currentPos = shallowCopy(home)
 local checkpoint = shallowCopy(currentPos)
 local undesirables = {
@@ -20,7 +20,7 @@ local undesirables = {
 	"minecraft:cobblestone",
 	"byg:soapstone",
 	"byg:rocky_stone",
-	"astralsorcery:marble",
+	"astralsorcery:marble_raw",
 	"byg:scoria_stone",
 }
 local level = 50
