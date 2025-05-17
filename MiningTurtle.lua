@@ -213,6 +213,7 @@ local function advancedMine()
 
 		if turtle.detectUp() then
 			local item = turtle.inspectUp()
+			print(item)
 			if item and item.name and not table.contains(undesirables, item.name) then
 				turtle.digUp()
 				if not firstMinableFound then
