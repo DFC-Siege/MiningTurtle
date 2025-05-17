@@ -192,19 +192,25 @@ local function moveBack(movesList)
 	local success = false
 	if lastMove == "f" then
 		success = turtle.back()
+		currentPos.x = currentPos.x - 1
 	elseif lastMove == "b" then
 		success = turtle.forward()
+		currentPos.x = currentPos.x + 1
 	elseif lastMove == "u" then
 		success = turtle.down()
+		currentPos.y = currentPos.y - 1
 	elseif lastMove == "d" then
 		success = turtle.up()
+		currentPos.y = currentPos.y + 1
 	elseif lastMove == "l" then
 		turtle.turnRight()
 		success = turtle.forward()
+		currentPos.z = currentPos.z + 1
 		turtle.turnLeft()
 	elseif lastMove == "r" then
 		turtle.turnLeft()
 		success = turtle.forward()
+		currentPos.z = currentPos.z - 1
 		turtle.turnRight()
 	end
 
