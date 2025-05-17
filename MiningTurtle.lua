@@ -324,6 +324,8 @@ local function advancedMine()
 			moveBack(mineMoves)
 		end
 
+		print("Current position: " .. currentPos.x .. ", " .. currentPos.y .. ", " .. currentPos.z)
+		print("Checkpoint position: " .. checkpoint.x .. ", " .. checkpoint.y .. ", " .. checkpoint.z)
 		print(currentPos.x == checkpoint.x and currentPos.y == checkpoint.y and currentPos.z == checkpoint.z)
 		if
 			firstMinableFound
