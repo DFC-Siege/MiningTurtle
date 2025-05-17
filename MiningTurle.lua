@@ -1,5 +1,5 @@
-local home = { x = 0, y = 0, z = 0 }
-local currentPos = { x = 0, y = 0, z = 0 }
+local home = { x = 304, y = 65, z = -139 }
+local currentPos = { x = 304, y = 65, z = -139 }
 local undesirables = {
 	"minecraft:stone",
 	"minecraft:granite",
@@ -9,7 +9,7 @@ local undesirables = {
 	"minecraft:gravel",
 	"minecraft:clay",
 }
-local level = 0
+local level = 50
 local moves = {}
 
 local fuelLimit = turtle.getFuelLimit()
@@ -133,7 +133,9 @@ local function checkGoBackHome()
 	distance = distance + math.abs(home.x - currentPos.x)
 	distance = distance + math.abs(home.y - currentPos.y)
 	distance = distance + math.abs(home.z - currentPos.z)
-	return distance - (getMovementLeft() + margin) <= 0
+
+	print(getMovementLeft())
+	return getMovementLeft() - distance + margin <= 0
 end
 
 local function moveTowardsHome()
@@ -172,6 +174,7 @@ local function levelReached()
 end
 
 local function move(direction)
+	print("Moving " .. direction)
 	if direction == "u" then
 		turtle.up()
 	elseif direction == "d" then
@@ -205,14 +208,15 @@ local function loop()
 		elseif not levelReached() then
 			print("Moving to level")
 			if currentPos.y < level then
+				turtle.digUp()
 				move("u")
 			else
+				turtle.digDown()
 				move("d")
 			end
 		else
 			print("Mining")
 			mine()
-			print("Moving forward")
 			move("f")
 		end
 	end
