@@ -1,6 +1,14 @@
+local function shallowCopy(t)
+	local copy = {}
+	for k, v in pairs(t) do
+		copy[k] = v
+	end
+	return copy
+end
+
 local home = { x = 304, y = 58, z = -139 }
-local currentPos = home
-local checkpoint = currentPos
+local currentPos = shallowCopy(home)
+local checkpoint = shallowCopy(currentPos)
 local undesirables = {
 	"minecraft:stone",
 	"minecraft:granite",
@@ -226,7 +234,7 @@ local function advancedMine()
 				print("Found: " .. item.name)
 				turtle.digUp()
 				if not firstMinableFound then
-					checkpoint = currentPos
+					checkpoint = shallowCopy(currentPos)
 					firstMinableFound = true
 				end
 				hasFoundMinable = true
@@ -240,7 +248,7 @@ local function advancedMine()
 				print("Found: " .. item.name)
 				turtle.digDown()
 				if not firstMinableFound then
-					checkpoint = currentPos
+					checkpoint = shallowCopy(currentPos)
 					firstMinableFound = true
 				end
 				hasFoundMinable = true
@@ -256,7 +264,7 @@ local function advancedMine()
 				print("Found: " .. item.name)
 				turtle.dig()
 				if not firstMinableFound then
-					checkpoint = currentPos
+					checkpoint = shallowCopy(currentPos)
 					firstMinableFound = true
 				end
 				hasFoundMinable = true
@@ -277,7 +285,7 @@ local function advancedMine()
 				print("Found: " .. item.name)
 				turtle.dig()
 				if not firstMinableFound then
-					checkpoint = currentPos
+					checkpoint = shallowCopy(currentPos)
 					firstMinableFound = true
 				end
 				hasFoundMinable = true
@@ -296,7 +304,7 @@ local function advancedMine()
 				print("Found: " .. item.name)
 				turtle.dig()
 				if not firstMinableFound then
-					checkpoint = currentPos
+					checkpoint = shallowCopy(currentPos)
 					firstMinableFound = true
 				end
 				hasFoundMinable = true
