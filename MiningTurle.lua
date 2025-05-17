@@ -176,18 +176,24 @@ end
 local function move(direction)
 	print("Moving " .. direction)
 	if direction == "u" then
+		currentPos.y = currentPos.y + 1
 		turtle.up()
 	elseif direction == "d" then
+		currentPos.y = currentPos.y - 1
 		turtle.down()
 	elseif direction == "f" then
+		currentPos.x = currentPos.x + 1
 		turtle.forward()
 	elseif direction == "b" then
+		currentPos.x = currentPos.x - 1
 		turtle.back()
 	elseif direction == "l" then
+		currentPos.z = currentPos.z - 1
 		turtle.turnLeft()
 		turtle.forward()
 		turtle.turnRight()
 	elseif direction == "r" then
+		currentPos.z = currentPos.z + 1
 		turtle.turnRight()
 		turtle.forward()
 		turtle.turnLeft()
