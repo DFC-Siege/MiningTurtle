@@ -203,6 +203,8 @@ local function moveBack(movesList)
 		turtle.turnRight()
 	end
 
+	print("Moving " .. lastMove)
+
 	if not success then
 		mine()
 	else
