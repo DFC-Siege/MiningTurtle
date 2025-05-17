@@ -6,15 +6,16 @@ local urls = {
 for _, url in ipairs(urls) do
 	-- Extract the filename from the URL
 	local filename = url:match("^.+/(.+)$")
+	print(filename)
 	if filename then
 		-- Delete the file if it exists
-		if fs.exists("./" .. filename) then
+		if fs.exists("/programs/" .. filename) then
 			fs.delete(filename)
 			print("Deleted existing file: " .. filename)
 		end
 
 		-- Download the file
-		local success, err = shell.run("wget --no-cache", url, filename)
+		local success, err = shell.run("wget", url, filename)
 		if success then
 			print("Downloaded: " .. filename)
 		else
