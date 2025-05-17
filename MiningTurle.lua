@@ -218,7 +218,4 @@ local function loop()
 	end
 end
 
-return {
-	refuel = refuel,
-	loop = loop,
-}
+loop()
