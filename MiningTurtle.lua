@@ -261,6 +261,8 @@ local function advancedMine()
 				hasFoundMinable = true
 				turtle.turnRight()
 				move("l", mineMoves)
+			else
+				turtle.turnRight()
 			end
 		end
 
@@ -277,6 +279,8 @@ local function advancedMine()
 				hasFoundMinable = true
 				turtle.turnLeft()
 				move("r", mineMoves)
+			else
+				turtle.TurnLeft()
 			end
 		end
 
