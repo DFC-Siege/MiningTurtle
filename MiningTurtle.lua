@@ -202,6 +202,15 @@ local function moveBack(movesList)
 	end
 end
 
+local function tableContains(table, value)
+	for i = 1, #table do
+		if table[i] == value then
+			return true
+		end
+	end
+	return false
+end
+
 local function advancedMine()
 	local hasFoundMinable
 	local done
@@ -213,8 +222,7 @@ local function advancedMine()
 
 		if turtle.detectUp() then
 			local _, item = turtle.inspectUp()
-			print(item)
-			if item and item.name and not table.contains(undesirables, item.name) then
+			if item and item.name and not tableContains(undesirables, item.name) then
 				turtle.digUp()
 				if not firstMinableFound then
 					checkpoint = currentPos
