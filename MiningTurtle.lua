@@ -174,7 +174,7 @@ local function mine()
 end
 
 local function moveBack(movesList)
-	local lastMove = moves[#moves]
+	local lastMove = movesList[#moves]
 
 	local success = false
 	if lastMove == "f" then
@@ -198,7 +198,7 @@ local function moveBack(movesList)
 	if not success then
 		mine()
 	else
-		table.remove(moves, #moves)
+		table.remove(movesList, #movesList)
 	end
 end
 
