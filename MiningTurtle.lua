@@ -1,5 +1,6 @@
 local home = { x = 304, y = 65, z = -139 }
 local currentPos = { x = 304, y = 65, z = -139 }
+local checkpoint = currentPos
 local undesirables = {
 	"minecraft:stone",
 	"minecraft:granite",
@@ -16,6 +17,48 @@ local level = 50
 local moves = {}
 
 local fuelLimit = turtle.getFuelLimit()
+
+local function savePosition()
+	local file = fs.open("position.txt", "w")
+	if file then
+		file.writeLine("x: " .. currentPos.x)
+		file.writeLine("y: " .. currentPos.y)
+		file.writeLine("z: " .. currentPos.z)
+		file.close()
+	else
+		print("Error saving position")
+	end
+end
+
+local function move(direction, movesList)
+	print("Moving " .. direction)
+	if direction == "u" then
+		currentPos.y = currentPos.y + 1
+		turtle.up()
+	elseif direction == "d" then
+		currentPos.y = currentPos.y - 1
+		turtle.down()
+	elseif direction == "f" then
+		currentPos.x = currentPos.x + 1
+		turtle.forward()
+	elseif direction == "b" then
+		currentPos.x = currentPos.x - 1
+		turtle.back()
+	elseif direction == "l" then
+		currentPos.z = currentPos.z - 1
+		turtle.turnLeft()
+		turtle.forward()
+		turtle.turnRight()
+	elseif direction == "r" then
+		currentPos.z = currentPos.z + 1
+		turtle.turnRight()
+		turtle.forward()
+		turtle.turnLeft()
+	end
+
+	table.insert(movesList, direction)
+	savePosition()
+end
 
 local function getFuelAmount(slot)
 	local item = turtle.getItemDetail(slot)
@@ -130,6 +173,111 @@ local function mine()
 	dropUndesirables()
 end
 
+local function moveBack(movesList)
+	local lastMove = moves[#moves]
+
+	local success = false
+	if lastMove == "f" then
+		success = turtle.back()
+	elseif lastMove == "b" then
+		success = turtle.forward()
+	elseif lastMove == "u" then
+		success = turtle.down()
+	elseif lastMove == "d" then
+		success = turtle.up()
+	elseif lastMove == "l" then
+		turtle.turnRight()
+		success = turtle.forward()
+		turtle.turnLeft()
+	elseif lastMove == "r" then
+		turtle.turnLeft()
+		success = turtle.forward()
+		turtle.turnRight()
+	end
+
+	if not success then
+		mine()
+	else
+		table.remove(moves, #moves)
+	end
+end
+
+local function advancedMine()
+	local hasFoundMinable
+	local done
+	local mineMoves = {}
+	local firstMinableFound = false
+
+	repeat
+		hasFoundMinable = false
+
+		if turtle.detectUp() then
+			local item = turtle.inspectUp()
+			if item and item.name and not table.contains(undesirables, item.name) then
+				turtle.digUp()
+				if not firstMinableFound then
+					checkpoint = currentPos
+					firstMinableFound = true
+				end
+				hasFoundMinable = true
+				move("u", mineMoves)
+			end
+		end
+
+		if turtle.detectDown() then
+			local item = turtle.inspectDown()
+			if item and item.name and not table.contains(undesirables, item.name) then
+				turtle.digDown()
+				if not firstMinableFound then
+					checkpoint = currentPos
+					firstMinableFound = true
+				end
+				hasFoundMinable = true
+				move("d", mineMoves)
+			end
+		end
+
+		turtle.turnLeft()
+		if turtle.detect() then
+			local item = turtle.inspect()
+			if item and item.name and not table.contains(undesirables, item.name) then
+				turtle.digDown()
+				if not firstMinableFound then
+					checkpoint = currentPos
+					firstMinableFound = true
+				end
+				hasFoundMinable = true
+				move("f", mineMoves)
+			end
+		end
+		turtle.turnRight()
+
+		turtle.turnRight()
+		if turtle.detect() then
+			local item = turtle.inspect()
+			if item and item.name and not table.contains(undesirables, item.name) then
+				turtle.digDown()
+				if not firstMinableFound then
+					checkpoint = currentPos
+					firstMinableFound = true
+				end
+				hasFoundMinable = true
+				move("f", mineMoves)
+			end
+		end
+		turtle.turnLeft()
+
+		if not hasFoundMinable then
+			moveBack(mineMoves)
+		end
+
+		if currentPos == checkpoint then
+			done = true
+		end
+
+	until done
+end
+
 local function checkGoBackHome()
 	local distance = 0
 	local margin = 25
@@ -176,18 +324,6 @@ local function levelReached()
 	return currentPos.y == level
 end
 
-local function savePosition()
-	local file = fs.open("position.txt", "w")
-	if file then
-		file.writeLine("x: " .. currentPos.x)
-		file.writeLine("y: " .. currentPos.y)
-		file.writeLine("z: " .. currentPos.z)
-		file.close()
-	else
-		print("Error saving position")
-	end
-end
-
 local function loadPosition()
 	local file = fs.open("position.txt", "r")
 	if file then
@@ -209,36 +345,6 @@ local function loadPosition()
 	end
 end
 
-local function move(direction)
-	print("Moving " .. direction)
-	if direction == "u" then
-		currentPos.y = currentPos.y + 1
-		turtle.up()
-	elseif direction == "d" then
-		currentPos.y = currentPos.y - 1
-		turtle.down()
-	elseif direction == "f" then
-		currentPos.x = currentPos.x + 1
-		turtle.forward()
-	elseif direction == "b" then
-		currentPos.x = currentPos.x - 1
-		turtle.back()
-	elseif direction == "l" then
-		currentPos.z = currentPos.z - 1
-		turtle.turnLeft()
-		turtle.forward()
-		turtle.turnRight()
-	elseif direction == "r" then
-		currentPos.z = currentPos.z + 1
-		turtle.turnRight()
-		turtle.forward()
-		turtle.turnLeft()
-	end
-
-	table.insert(moves, direction)
-	savePosition()
-end
-
 local function loop()
 	while true do
 		if refuel() then
@@ -252,15 +358,16 @@ local function loop()
 			print("Moving to level")
 			if currentPos.y < level then
 				turtle.digUp()
-				move("u")
+				move("u", moves)
 			else
 				turtle.digDown()
-				move("d")
+				move("d", moves)
 			end
 		else
 			print("Mining")
-			mine()
-			move("f")
+			advancedMine()
+			-- mine()
+			move("f", moves)
 		end
 	end
 end
