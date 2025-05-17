@@ -253,7 +253,7 @@ local function advancedMine()
 			local _, item = turtle.inspect()
 			if item and item.name and not tableContains(undesirables, item.name) then
 				print("Found: " .. item.name)
-				turtle.digDown()
+				turtle.dig()
 				if not firstMinableFound then
 					checkpoint = currentPos
 					firstMinableFound = true
@@ -269,7 +269,7 @@ local function advancedMine()
 			local _, item = turtle.inspect()
 			if item and item.name and not tableContains(undesirables, item.name) then
 				print("Found: " .. item.name)
-				turtle.digDown()
+				turtle.dig()
 				if not firstMinableFound then
 					checkpoint = currentPos
 					firstMinableFound = true
