@@ -309,7 +309,13 @@ local function advancedMine()
 			moveBack(mineMoves)
 		end
 
-		if firstMinableFound and currentPos == checkpoint then
+		print(currentPos.x == checkpoint.x and currentPos.y == checkpoint.y and currentPos.z == checkpoint.z)
+		if
+			firstMinableFound
+			and currentPos.x == checkpoint.x
+			and currentPos.y == checkpoint.y
+			and currentPos.z == checkpoint.z
+		then
 			print("Checkpoint reached")
 			done = true
 		end
