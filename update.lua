@@ -1,6 +1,6 @@
 -- List of URLs to download
 local urls = {
-	"https://raw.githubusercontent.com/DFC-Siege/MiningTurtle/refs/heads/main/MiningTurle.lua",
+	"https://raw.githubusercontent.com/DFC-Siege/MiningTurtle/refs/heads/main/MiningTurtle.lua",
 }
 
 for _, url in ipairs(urls) do
