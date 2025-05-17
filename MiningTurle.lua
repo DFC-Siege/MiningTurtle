@@ -49,7 +49,9 @@ local function refuel()
 
     for i = 1, 16 do
         turtle.select(i)
-        if not turtle.refuel(0) then goto continue end
+        if not turtle.refuel(0) then
+          goto continue
+        end
 
         local fuelPerItem = getFuelAmount(i)
         if fuelPerItem <= 0 then goto continue end
