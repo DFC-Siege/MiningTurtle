@@ -45,27 +45,39 @@ end
 local function move(direction, movesList)
 	print("Moving " .. direction)
 	if direction == "u" then
-		currentPos.y = currentPos.y + 1
-		turtle.up()
+		local success = turtle.up()
+		if success then
+			currentPos.y = currentPos.y + 1
+		end
 	elseif direction == "d" then
-		currentPos.y = currentPos.y - 1
-		turtle.down()
+		local success = turtle.down()
+		if success then
+			currentPos.y = currentPos.y - 1
+		end
 	elseif direction == "f" then
-		currentPos.x = currentPos.x + 1
-		turtle.forward()
+		local success = turtle.forward()
+		if success then
+			currentPos.x = currentPos.x + 1
+		end
 	elseif direction == "b" then
-		currentPos.x = currentPos.x - 1
-		turtle.back()
+		local success = turtle.back()
+		if success then
+			currentPos.x = currentPos.x - 1
+		end
 	elseif direction == "l" then
-		currentPos.z = currentPos.z - 1
 		turtle.turnLeft()
-		turtle.forward()
+		local success = turtle.forward()
 		turtle.turnRight()
+		if success then
+			currentPos.z = currentPos.z - 1
+		end
 	elseif direction == "r" then
-		currentPos.z = currentPos.z + 1
 		turtle.turnRight()
-		turtle.forward()
+		local success = turtle.forward()
 		turtle.turnLeft()
+		if success then
+			currentPos.z = currentPos.z + 1
+		end
 	end
 
 	table.insert(movesList, direction)
