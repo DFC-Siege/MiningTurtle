@@ -534,6 +534,7 @@ end
 
 local function loop()
 	while true do
+		print("Current position: " .. currentPos.x .. ", " .. currentPos.y .. ", " .. currentPos.z)
 		if refuel() then
 			print("Refuelling")
 		end
