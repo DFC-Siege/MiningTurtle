@@ -210,25 +210,37 @@ local function moveBack(movesList)
 	local success = false
 	if lastMove == "f" then
 		success = turtle.back()
-		currentPos.x = currentPos.x - 1
+		if success then
+			currentPos.x = currentPos.x - 1
+		end
 	elseif lastMove == "b" then
 		success = turtle.forward()
-		currentPos.x = currentPos.x + 1
+		if success then
+			currentPos.x = currentPos.x + 1
+		end
 	elseif lastMove == "u" then
 		success = turtle.down()
-		currentPos.y = currentPos.y - 1
+		if success then
+			currentPos.y = currentPos.y - 1
+		end
 	elseif lastMove == "d" then
 		success = turtle.up()
-		currentPos.y = currentPos.y + 1
+		if success then
+			currentPos.y = currentPos.y + 1
+		end
 	elseif lastMove == "l" then
 		turtle.turnRight()
 		success = turtle.forward()
-		currentPos.z = currentPos.z + 1
+		if success then
+			currentPos.z = currentPos.z + 1
+		end
 		turtle.turnLeft()
 	elseif lastMove == "r" then
 		turtle.turnLeft()
 		success = turtle.forward()
-		currentPos.z = currentPos.z - 1
+		if success then
+			currentPos.z = currentPos.z - 1
+		end
 		turtle.turnRight()
 	end
 
@@ -453,25 +465,37 @@ local function moveTowardsHome()
 		local success = false
 		if lastMove == "f" then
 			success = turtle.back()
-			currentPos.x = currentPos.x - 1
+			if success then
+				currentPos.x = currentPos.x - 1
+			end
 		elseif lastMove == "b" then
 			success = turtle.forward()
-			currentPos.x = currentPos.x + 1
+			if success then
+				currentPos.x = currentPos.x + 1
+			end
 		elseif lastMove == "u" then
 			success = turtle.down()
-			currentPos.y = currentPos.y - 1
+			if success then
+				currentPos.y = currentPos.y - 1
+			end
 		elseif lastMove == "d" then
 			success = turtle.up()
-			currentPos.y = currentPos.y + 1
+			if success then
+				currentPos.y = currentPos.y + 1
+			end
 		elseif lastMove == "l" then
 			turtle.turnRight()
 			success = turtle.forward()
-			currentPos.z = currentPos.z + 1
+			if success then
+				currentPos.z = currentPos.z + 1
+			end
 			turtle.turnLeft()
 		elseif lastMove == "r" then
 			turtle.turnLeft()
 			success = turtle.forward()
-			currentPos.z = currentPos.z - 1
+			if success then
+				currentPos.z = currentPos.z - 1
+			end
 			turtle.turnRight()
 		end
 
