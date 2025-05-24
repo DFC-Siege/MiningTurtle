@@ -11,6 +11,8 @@ local currentPos = shallowCopy(home)
 local checkpoint = shallowCopy(currentPos)
 local undesirables = {
 	"minecraft:stone",
+	"minecraft:grass",
+	"minecraft:grass_block",
 	"minecraft:granite",
 	"minecraft:diorite",
 	"minecraft:andesite",
