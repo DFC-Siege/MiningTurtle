@@ -200,6 +200,13 @@ local function mine()
 end
 
 local function moveBack(movesList)
+	-- TODO: This is a baindaid for the issue where the turtle moves to another position
+	if currentPos.x == home.x and currentPos.y == home.y and currentPos.z == home.z then
+		print("Already at home, resetting movesList")
+		movesList = {}
+		return
+	end
+
 	if #movesList == 0 then
 		print("No moves to go back")
 		return
