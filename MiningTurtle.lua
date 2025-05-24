@@ -46,44 +46,47 @@ end
 
 local function move(direction, movesList)
 	print("Moving " .. direction)
+	local success = false
 	if direction == "u" then
-		local success = turtle.up()
+		success = turtle.up()
 		if success then
 			currentPos.y = currentPos.y + 1
 		end
 	elseif direction == "d" then
-		local success = turtle.down()
+		success = turtle.down()
 		if success then
 			currentPos.y = currentPos.y - 1
 		end
 	elseif direction == "f" then
-		local success = turtle.forward()
+		success = turtle.forward()
 		if success then
 			currentPos.x = currentPos.x + 1
 		end
 	elseif direction == "b" then
-		local success = turtle.back()
+		success = turtle.back()
 		if success then
 			currentPos.x = currentPos.x - 1
 		end
 	elseif direction == "l" then
 		turtle.turnLeft()
-		local success = turtle.forward()
+		success = turtle.forward()
 		turtle.turnRight()
 		if success then
 			currentPos.z = currentPos.z - 1
 		end
 	elseif direction == "r" then
 		turtle.turnRight()
-		local success = turtle.forward()
+		success = turtle.forward()
 		turtle.turnLeft()
 		if success then
 			currentPos.z = currentPos.z + 1
 		end
 	end
 
-	table.insert(movesList, direction)
-	savePosition()
+	if success then
+		table.insert(movesList, direction)
+		savePosition()
+	end
 end
 
 local function getFuelAmount(slot)
