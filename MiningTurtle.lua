@@ -28,6 +28,8 @@ local moves = {}
 
 local fuelLimit = turtle.getFuelLimit()
 
+local shouldEmpty = true
+
 local function savePosition()
 	local file = fs.open("programs/position.txt", "w")
 	if file then
@@ -329,7 +331,7 @@ local function advancedMine()
 
 		turtle.turnLeft()
 		turtle.turnLeft()
-		turnedBack = false
+		local turnedBack = false
 		if turtle.detect() then
 			local _, item = turtle.inspect()
 			if item and item.name and not tableContains(undesirables, item.name) then
@@ -390,6 +392,28 @@ local function inventoryFull()
 	return full
 end
 
+local function inventoryEmpty()
+	local empty = true
+	for i = 1, 16 do
+		local item = turtle.getItemDetail(i)
+		if item then
+			empty = false
+			break
+		end
+	end
+
+	return empty
+end
+
+local function isHome()
+	local distance = 0
+	distance = distance + math.abs(home.x - currentPos.x)
+	distance = distance + math.abs(home.y - currentPos.y)
+	distance = distance + math.abs(home.z - currentPos.z)
+
+	return distance == 0
+end
+
 local function checkGoBackHome()
 	local distance = 0
 	local margin = 25
@@ -398,8 +422,14 @@ local function checkGoBackHome()
 	distance = distance + math.abs(home.z - currentPos.z)
 
 	print(getMovementLeft())
+	local notEnoughFuel = getMovementLeft() - distance + margin <= 0
+	local isInventoryFull = inventoryFull()
 
-	return inventoryFull() or getMovementLeft() - distance + margin <= 0
+	if isInventoryFull then
+		shouldEmpty = true
+	end
+
+	return isInventoryFull or notEnoughFuel
 end
 
 local function moveTowardsHome()
@@ -470,7 +500,9 @@ local function loop()
 			print("Refuelling")
 		end
 
-		if checkGoBackHome() then
+		if shouldEmpty and isHome() and not inventoryEmpty() then
+			print("Emptying inventory")
+		elseif checkGoBackHome() then
 			print("Returning home")
 			moveTowardsHome()
 		elseif not levelReached() then
