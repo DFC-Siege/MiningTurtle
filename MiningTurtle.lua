@@ -463,13 +463,6 @@ end
 
 local function moveTowardsHome()
 	while #moves > 0 do
-		-- TODO: This is a baindaid for the issue where the turtle moves to another position
-		-- if currentPos.x == home.x and currentPos.y == home.y and currentPos.z == home.z then
-		-- 	print("Already at home, resetting movesList")
-		-- 	moves = {}
-		-- 	return
-		-- end
-
 		local lastMove = moves[#moves]
 
 		local success = false
