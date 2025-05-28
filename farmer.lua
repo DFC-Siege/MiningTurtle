@@ -64,7 +64,7 @@ local function farm()
 end
 
 local function emptyInventory()
-	empty = true
+	local empty = true
 	for slot = 2, 16 do
 		turtle.select(slot)
 		if turtle.getItemCount() > 0 then
