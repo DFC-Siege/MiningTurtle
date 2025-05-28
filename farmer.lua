@@ -39,7 +39,10 @@ local function farm()
 	for x = 0, width do
 		for _ = 0, height do
 			turtle.placeDown()
-			turtle.suckDown()
+			local success = true
+			while success do
+				success = turtle.suckDown()
+			end
 			if x % 2 == 0 then
 				move("f")
 			else
