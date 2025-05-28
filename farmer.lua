@@ -74,7 +74,7 @@ end
 local function loop()
 	while true do
 		if emptyInventory() then
-			turtle.move("f")
+			move("f")
 			turtle.select(1)
 			farm()
 		end
