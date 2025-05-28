@@ -39,11 +39,13 @@ local function farm()
 	for x = 0, width do
 		for _ = 0, height do
 			turtle.placeDown()
+			print("placing down")
 			if x % 2 == 0 then
 				move("f")
 			else
 				move("b")
 			end
+			print("moving forward/backward")
 		end
 		move("r")
 	end
