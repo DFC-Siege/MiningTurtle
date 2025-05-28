@@ -49,6 +49,11 @@ local function farm()
 				move("b")
 			end
 		end
+		turtle.placeDown()
+		local success = true
+		while success do
+			success = turtle.suckDown()
+		end
 		move("r")
 	end
 
