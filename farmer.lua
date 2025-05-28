@@ -52,11 +52,14 @@ local function farm()
 		move("r")
 	end
 
-	for _ = position.y, 0, -1 do
+	for _ = position.y, 1, -1 do
 		move("b")
 	end
 	for _ = position.x, 0, -1 do
 		move("l")
+	end
+	for _ = position.y, 0, -1 do
+		move("b")
 	end
 end
 
