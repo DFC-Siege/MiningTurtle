@@ -58,9 +58,7 @@ local function farm()
 	for _ = position.x, 0, -1 do
 		move("l")
 	end
-	for _ = position.y, 0, -1 do
-		move("b")
-	end
+	move("b")
 end
 
 local function emptyInventory()
