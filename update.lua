@@ -1,6 +1,7 @@
 -- List of URLs to download
 local urls = {
 	"https://raw.githubusercontent.com/DFC-Siege/MiningTurtle/main/MiningTurtle.lua",
+	"https://raw.githubusercontent.com/DFC-Siege/MiningTurtle/main/farmer.lua",
 	-- Add more URLs as needed
 }
 
