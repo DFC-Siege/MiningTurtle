@@ -35,4 +35,44 @@ local function move(direction)
 	end
 end
 
-move("r")
+local function farm()
+	for x = 0, width do
+		for _ = 0, height do
+			turtle.placeDown()
+			if x % 2 == 0 then
+				move("f")
+			else
+				move("b")
+			end
+		end
+		move("r")
+	end
+
+	for _ = position.y, 0, -1 do
+		move("b")
+	end
+	for _ = position.x, 0, -1 do
+		move("l")
+	end
+end
+
+local function emptyInventory()
+	empty = true
+	for slot = 2, 16 do
+		turtle.select(slot)
+		if turtle.getItemCount() > 0 then
+			empty = false
+		end
+	end
+	return empty
+end
+
+local function loop()
+	while true do
+		if emptyInventory() then
+			farm()
+		end
+	end
+end
+
+loop()
