@@ -3,7 +3,7 @@ local position = {
 	y = 0,
 }
 
-local height = 26
+local height = 25
 local width = 14
 
 local function move(direction)
@@ -36,8 +36,8 @@ local function move(direction)
 end
 
 local function farm()
-	for x = 0, width do
-		for _ = 0, height do
+	for x = 0, width - 1 do
+		for _ = 0, height - 1 do
 			turtle.placeDown()
 			local success = true
 			while success do
@@ -74,6 +74,7 @@ end
 local function loop()
 	while true do
 		if emptyInventory() then
+			turtle.move("f")
 			turtle.select(1)
 			farm()
 		end
